@@ -21,7 +21,7 @@ def question(num, quest):
 
 def choice_func(num, choice):
     for i in xrange(1, num+1):
-        choice.append(raw_input('Enter Your Choice '+'('+str(i)+') :\n'))
+        choice.append(raw_input('Enter Your Choice ' + '(' + str(i) + ') :\n'))
     return choice
 def reset():
     question(input('Please Enter The Number of Your Question :\n'), {})
