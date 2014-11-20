@@ -12,6 +12,7 @@ Author : Yaya & Tonpho @ITKMITL
 Last Modified Date : 20/11/2014 Time : 22:19
 Language : Python 2.7.8
 
+eiei jubjub
 '''
 def question(num, quest):
     for i in xrange(num):
