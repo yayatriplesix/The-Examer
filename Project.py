@@ -16,8 +16,6 @@ def question(num, quest):
         choice = choice_func(input('Please Enter The Number of Your Choices :\n'), [])
         correct = input('Please Enter Your Correct Choice :\n')
         quest[quest_name] += correct
-        print quest
-        print choice
 
 def choice_func(num, choice):
     for i in xrange(1, num+1):
