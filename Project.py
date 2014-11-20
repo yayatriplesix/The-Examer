@@ -1,4 +1,5 @@
-'''This program can help you create the examination
+'''
+This program can help you create the examination
 How to use:
 1.Enter the number of your question
 2.Enter your question
@@ -6,6 +7,11 @@ How to use:
 4.Enter the correct answer
 You can reset your question by enter "_reset" in question
 You can submit all of your question when you finish it by enter "_submit"
+
+Author : Yaya & Tonpho @ITKMITL
+Last Modified Date : 20/11/2014 Time : 22:19
+Language : Python 2.7.8
+
 '''
 def question(num, quest):
     for i in xrange(num):
