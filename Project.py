@@ -9,52 +9,48 @@ You can reset your question by enter "_reset" in question
 You can submit all of your question when you finish it by enter "_submit"
 
 Author : Yaya & Tonpho @ITKMITL
-Last Modified Date : 20/11/2014 Time : 22:19
+Last Modified Date : 24/11/2014 Time : 14:50
 Language : Python 2.7.8
 
 '''
 import Tkinter as tk
 root = tk.Tk()
-root.geometry('500x200')
+root.resizable(True, True)
+##root.geometry('500x200')
 root.title('The-Examer')
-tk.Label(root, text='Please Enter The Number of Your Question :').pack()
+tk.Label(root, text='Please Enter The Number of Your Question :').grid()
 num = tk.IntVar()
 entry = tk.Entry(root, textvariable=num)
-entry.pack()
-
+entry.grid(pady=5)
+##space = tk.Label(root, text=" ")
+##space.grid()
 
 
 def question():
     root = tk.Tk()
-    root.geometry('500x200')
+    root.resizable(True, True)
+##    root.geometry('500x200')
     root.title('The-Examer')
     quest = {}
     global num
     num = num.get()
+    col = 0
+    row = 1
     for i in xrange(1, num+1):
         quest_name = tk.StringVar()
-        tk.Label(root, text='Please Enter Your Question %d :' % i).pack()
+        tk.Label(root, text='Please Enter Your Question %d :' % i).grid(pady=5, row=(row-1)*2, column=col)
         entry = tk.Entry(root, textvariable=quest_name)
-        entry.pack()
-    tk.Button(root, text='Submit').pack()
-##        if quest_name == '_reset':
-##            reset()
-##        quest[quest_name.get()] = 0
-##        choice = choice_func(input('Please Enter The Number of Your Choices :\n'), [])
-##        correct = input('Please Enter Your Correct Choice :\n')
-##        quest[quest_name.get()] += correct
-##        print quest
-##        print choice
-        
-##def choice_func(num, choice):
-##    for i in xrange(1, num+1):
-##        choice.append(raw_input('Enter Your Choice '+'('+str(i)+') :\n'))
-##    return choice
+        entry.grid(row=(row*2)-1, column=col)
+        row += 1
+        if i%10 == 0:
+            if num % 2 == 0:
+                col += 2
+            else:
+                col += 1
+            row = 1
+    tk.Button(root, text='Submit').grid(pady=5)
 
-##def reset():
-##    question(input('Please Enter The Number of Your Question :\n'), {})
 
-tk.Button(root, text='Create', command=question).pack()
-##
-##question(input('Please Enter The Number of Your Question :\n'), {})
+tk.Button(root, text='Create', command=question).grid(pady=5)
+
 root.mainloop()
