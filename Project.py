@@ -25,21 +25,31 @@ entry.grid(pady=5)
 ##space = tk.Label(root, text=" ")
 ##space.grid()
 
+def choice():
+    root2 = tk.Toplevel()
+    root2.resizable(True, True)
+    tk.Label(root2, text='Please Enter The Number of Your Choices').grid(pady=5)
+    values = tk.IntVar(value='Please Select')
+    tk.OptionMenu(root2, values, 2, 3, 4, 5).grid(pady=2)
+    tk.Button(root2, text='Submit').grid(pady=5)
+    root1.destroy()
 
 def question():
-    root = tk.Tk()
-    root.resizable(True, True)
+    root1 = tk.Toplevel()
+    root1.resizable(True, True)
 ##    root.geometry('500x200')
-    root.title('The-Examer')
-    quest = {}
+    root1.title('The-Examer')
+    quest_list = []
     global num
     num = num.get()
     col = 0
     row = 1
+    for j in xrange(1, num+1):
+        quest_list.append('quest'+str(j))
     for i in xrange(1, num+1):
-        quest_name = tk.StringVar()
-        tk.Label(root, text='Please Enter Your Question %d :' % i).grid(pady=5, row=(row-1)*2, column=col)
-        entry = tk.Entry(root, textvariable=quest_name)
+        quest_list[i-1] = tk.StringVar()
+        tk.Label(root1, text='Please Enter Your Question %d :' % i).grid(pady=5, row=(row-1)*2, column=col)
+        entry = tk.Entry(root1, textvariable=quest_list[i-1])
         entry.grid(row=(row*2)-1, column=col)
         row += 1
         if i%10 == 0:
@@ -48,7 +58,7 @@ def question():
             else:
                 col += 1
             row = 1
-    tk.Button(root, text='Submit').grid(pady=5)
+    tk.Button(root1, text='Submit', command=choice).grid(columnspan = col + 1, pady = 5)
 
 
 tk.Button(root, text='Create', command=question).grid(pady=5)
