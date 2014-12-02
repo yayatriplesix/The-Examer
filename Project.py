@@ -21,27 +21,44 @@ class App:
         entry = tk.Entry(root, textvariable=self.num)
         entry.grid(pady=5)
         tk.Button(root, text='Create', command=self.question).grid(pady=5)
-    def main_add_choice(self):
-        root3 = tk.Toplevel()
-        root3.resizable(True,True)
+    def sub_add_choice(self):
+        self.i += 1
         value = self.values.get()
-        for i in xrange(1, self.num.get()+1):
-            tk.Label(root3, text=str(i)+'.'+self.quest_list[i-1].get()+' : ').grid(pady=3)
-            for j in xrange(1, value+1):
-                tk.Label(root3, text='('+str(j)+') : ').grid(pady=3, column=1)
-                tk.Entry(root3).grid(pady=3, column=2)
+        tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
+        for j in xrange(1, value+1):
+            tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
+            tk.Entry(self.root3, width=50).grid(pady=3, padx=10, row = j+1, column=2)
+        button_next = tk.Button(self.root3, text='Next', command=self.sub_add_choice)
+        button_submit = tk.Button(self.root3, text='Submit')
+        if self.i == len(self.quest_list):
+            button_submit.grid(column=2, row=value+2)
+        else:
+            button_next.grid(column=2, row=value+2)
+
+    def main_add_choice(self):
+        self.root2.destroy()
+        self.root3 = tk.Toplevel()
+        self.root3.resizable(True,True)
+        value = self.values.get()
+        self.i = 1
+        tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
+        for j in xrange(1, value+1):
+            tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
+            tk.Entry(self.root3, width=50).grid(pady=3, padx=10, row = j+1, column=2)
+        tk.Button(self.root3, text='Next', command=self.sub_add_choice).grid(column=2)
 
     def choice(self):
-        root2 = tk.Toplevel()
-        root2.resizable(True, True)
-        tk.Label(root2, text='Please Enter The Number of Your Choices').grid(pady=5)
+        self.root1.destroy()
+        self.root2 = tk.Toplevel()
+        self.root2.resizable(True, True)
+        tk.Label(self.root2, text='Please Enter The Number of Your Choices').grid(pady=5)
         self.values = tk.IntVar(value='Please Select')
-        tk.OptionMenu(root2, self.values, 2, 3, 4, 5).grid(pady=2)
-        tk.Button(root2, text='Submit', command=self.main_add_choice).grid(pady=5)
+        tk.OptionMenu(self.root2, self.values, 2, 3, 4, 5).grid(pady=2)
+        tk.Button(self.root2, text='Submit', command=self.main_add_choice).grid(pady=5)
     def question(self):
-        root1 = tk.Toplevel()
-        root1.resizable(True, True)
-        root1.title('The-Examer')
+        self.root1 = tk.Toplevel()
+        self.root1.resizable(True, True)
+        self.root1.title('The-Examer')
         self.quest_list = []
         num = self.num.get()
         col = 0
@@ -50,8 +67,8 @@ class App:
             self.quest_list.append('quest'+str(j))
         for i in xrange(1, num+1):
             self.quest_list[i-1] = tk.StringVar()
-            tk.Label(root1, text='Please Enter Your Question %d :' % i).grid(pady=5, row=(row-1)*2, column=col)
-            entry = tk.Entry(root1, textvariable=self.quest_list[i-1])
+            tk.Label(self.root1, text='Please Enter Your Question %d :' % i).grid(pady=5, row=(row-1)*2, column=col)
+            entry = tk.Entry(self.root1, width=50, textvariable=self.quest_list[i-1])
             entry.grid(row=(row*2)-1, column=col)
             row += 1
             if i%10 == 0:
@@ -60,7 +77,7 @@ class App:
                 else:
                     col += 1
                 row = 1
-        tk.Button(root1, text='Submit', command=self.choice).grid(columnspan = col + 1, pady = 5)
+        tk.Button(self.root1, text='Submit', command=self.choice).grid(columnspan = col + 1, pady = 5)
 
 
 
