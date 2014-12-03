@@ -9,7 +9,7 @@ You can reset your question by enter "_reset" in question
 You can submit all of your question when you finish it by enter "_submit"
 
 Author : Yaya & Tonpho @ITKMITL
-Last Modified Date : 03/12/2014 Time : 03:40
+Last Modified Date : 24/11/2014 Time : 14:50
 Language : Python 2.7.8
 
 '''
@@ -21,31 +21,51 @@ class App:
         entry = tk.Entry(root, textvariable=self.num)
         entry.grid(pady=5)
         tk.Button(root, text='Create', command=self.question).grid(pady=5)
-        
     def sub_add_choice(self):
         self.i += 1
         value = self.values.get()
+        self.correct_choice = tk.StringVar(value='Please Select')
         tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
         for j in xrange(1, value+1):
             tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
             tk.Entry(self.root3, width=50).grid(pady=3, padx=10, row = j+1, column=2)
+        if value == 2:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2')
+        elif value == 3:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3')
+        elif value == 4:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4')
+        elif value == 5:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4', '5')
+        option.grid(pady=3, column=2, row=value+2)
         button_next = tk.Button(self.root3, text='Next', command=self.sub_add_choice)
         button_submit = tk.Button(self.root3, text='Submit')
         if self.i == len(self.quest_list):
-            button_submit.grid(column=2, row=value+2)
+            button_submit.grid(column=2, row=value+3)
         else:
-            button_next.grid(column=2, row=value+2)
+            button_next.grid(column=2, row=value+3)
 
     def main_add_choice(self):
         self.root2.destroy()
         self.root3 = tk.Toplevel()
         self.root3.resizable(True,True)
         value = self.values.get()
+        self.correct_choice = tk.StringVar(value='Please Select')
         self.i = 1
         tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
         for j in xrange(1, value+1):
             tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
             tk.Entry(self.root3, width=50).grid(pady=3, padx=10, row = j+1, column=2)
+        if value == 2:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2')
+        elif value == 3:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3')
+        elif value == 4:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4')
+        elif value == 5:
+            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4', '5')
+        option.grid(pady=3, column=2, row=value+2)
+
         tk.Button(self.root3, text='Next', command=self.sub_add_choice).grid(column=2)
 
     def choice(self):
@@ -56,7 +76,6 @@ class App:
         self.values = tk.IntVar(value='Please Select')
         tk.OptionMenu(self.root2, self.values, 2, 3, 4, 5).grid(pady=2)
         tk.Button(self.root2, text='Submit', command=self.main_add_choice).grid(pady=5)
-        
     def question(self):
         self.root1 = tk.Toplevel()
         self.root1.resizable(True, True)
@@ -80,6 +99,7 @@ class App:
                     col += 1
                 row = 1
         tk.Button(self.root1, text='Submit', command=self.choice).grid(columnspan = col + 1, pady = 5)
+
 
 
 root = tk.Tk()
