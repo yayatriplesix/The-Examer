@@ -9,7 +9,7 @@ You can reset your question by enter "_reset" in question
 You can submit all of your question when you finish it by enter "_submit"
 
 Author : Yaya & Tonpho @ITKMITL
-Last Modified Date : 24/11/2014 Time : 14:50
+Last Modified Date : 03/12/2014 Time : 03:40
 Language : Python 2.7.8
 
 '''
@@ -21,6 +21,7 @@ class App:
         entry = tk.Entry(root, textvariable=self.num)
         entry.grid(pady=5)
         tk.Button(root, text='Create', command=self.question).grid(pady=5)
+        
     def sub_add_choice(self):
         self.i += 1
         value = self.values.get()
@@ -55,6 +56,7 @@ class App:
         self.values = tk.IntVar(value='Please Select')
         tk.OptionMenu(self.root2, self.values, 2, 3, 4, 5).grid(pady=2)
         tk.Button(self.root2, text='Submit', command=self.main_add_choice).grid(pady=5)
+        
     def question(self):
         self.root1 = tk.Toplevel()
         self.root1.resizable(True, True)
@@ -78,7 +80,6 @@ class App:
                     col += 1
                 row = 1
         tk.Button(self.root1, text='Submit', command=self.choice).grid(columnspan = col + 1, pady = 5)
-
 
 
 root = tk.Tk()
