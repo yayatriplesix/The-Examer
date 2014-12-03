@@ -5,8 +5,6 @@ How to use:
 2.Enter your question
 3.Enter you answer choices
 4.Enter the correct answer
-You can reset your question by enter "_reset" in question
-You can submit all of your question when you finish it by enter "_submit"
 
 Author : Yaya & Tonpho @ITKMITL
 Last Modified Date : 24/11/2014 Time : 14:50
@@ -21,25 +19,29 @@ class App:
         entry = tk.Entry(root, textvariable=self.num)
         entry.grid(pady=5)
         tk.Button(root, text='Create', command=self.question).grid(pady=5)
+    def submit(self):
+        self.ans_list.append(self.correct_choice.get())
+        print self.ans_list
     def sub_add_choice(self):
+        self.ans_list.append(self.correct_choice.get())
         self.i += 1
         value = self.values.get()
-        self.correct_choice = tk.StringVar(value='Please Select')
+        self.correct_choice = tk.IntVar(value='Select Answer')
         tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
         for j in xrange(1, value+1):
             tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
             tk.Entry(self.root3, width=50).grid(pady=3, padx=10, row = j+1, column=2)
         if value == 2:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2)
         elif value == 3:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3)
         elif value == 4:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4)
         elif value == 5:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4', '5')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4, 5)
         option.grid(pady=3, column=2, row=value+2)
         button_next = tk.Button(self.root3, text='Next', command=self.sub_add_choice)
-        button_submit = tk.Button(self.root3, text='Submit')
+        button_submit = tk.Button(self.root3, text='Submit', command=self.submit)
         if self.i == len(self.quest_list):
             button_submit.grid(column=2, row=value+3)
         else:
@@ -50,22 +52,22 @@ class App:
         self.root3 = tk.Toplevel()
         self.root3.resizable(True,True)
         value = self.values.get()
-        self.correct_choice = tk.StringVar(value='Please Select')
+        self.correct_choice = tk.IntVar(value='Select Answer')
+        self.ans_list = []
         self.i = 1
         tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
         for j in xrange(1, value+1):
             tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
             tk.Entry(self.root3, width=50).grid(pady=3, padx=10, row = j+1, column=2)
         if value == 2:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2)
         elif value == 3:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3)
         elif value == 4:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4)
         elif value == 5:
-            option = tk.OptionMenu(self.root3, self.correct_choice, '1', '2', '3', '4', '5')
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4, 5)
         option.grid(pady=3, column=2, row=value+2)
-
         tk.Button(self.root3, text='Next', command=self.sub_add_choice).grid(column=2)
 
     def choice(self):
