@@ -6,8 +6,6 @@ How to use:
 3.Enter you answer choices
 4.Enter the correct answer
 
-**IMPORTANT**
-The number of the question must be more than 1
 
 Author : Yaya & Tonpho @ITKMITL
 Last Modified Date : 22/12/2014 Time : 11:21 AM
@@ -20,7 +18,7 @@ import tkMessageBox
 class App:
     def __init__(self, root):
         tk.Label(root, text='Welcome To The Examer', font = "Helvetica 32 bold italic", fg = "red").grid(padx=20, pady=10)
-        howto = 'How to use:\n1.Enter the number of your question\n2.Enter your question\n3.Enter you answer choices\n4.Enter the correct answer\n5.Do the test\n\n**IMPORTANT!!**\nThe number of the question must be more than one'
+        howto = 'How to use:\n1.Enter the number of your question\n2.Enter your question\n3.Enter you answer choices\n4.Enter the correct answer\n5.Do the test'
         tk.Label(root, text=howto, font = "Helvetica 14").grid(padx=20, pady=10)
         tk.Button(root, text='Begin!', command=self.start).grid(pady=10)
 
@@ -198,7 +196,7 @@ class App:
                     row = 1
             tk.Button(self.root1, text='Submit', command=self.choice).grid(columnspan = col + 1, pady = 5)
         except:
-            tkMessageBox.showerror(title='xxxx', message='sdfdf')
+            tkMessageBox.showerror(title='Error', message='Plase select more than one')
 
 
 root = tk.Tk()
