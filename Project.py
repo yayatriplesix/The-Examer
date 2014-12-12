@@ -6,16 +6,21 @@ How to use:
 3.Enter you answer choices
 4.Enter the correct answer
 
+**IMPORTANT**
+The number of the question must be more than 1
+
 Author : Yaya & Tonpho @ITKMITL
-Last Modified Date : 24/11/2014 Time : 14:50
+Last Modified Date : 22/12/2014 Time : 11:21 AM
 Language : Python 2.7.8
 
 '''
 import Tkinter as tk
+import tkMessageBox
+
 class App:
     def __init__(self, root):
         tk.Label(root, text='Welcome To The Examer', font = "Helvetica 32 bold italic", fg = "red").grid(padx=20, pady=10)
-        howto = 'How to use:\n1.Enter the number of your question\n2.Enter your question\n3.Enter you answer choices\n4.Enter the correct answer\n5.Do the test'
+        howto = 'How to use:\n1.Enter the number of your question\n2.Enter your question\n3.Enter you answer choices\n4.Enter the correct answer\n5.Do the test\n\n**IMPORTANT!!**\nThe number of the question must be more than one'
         tk.Label(root, text=howto, font = "Helvetica 14").grid(padx=20, pady=10)
         tk.Button(root, text='Begin!', command=self.start).grid(pady=10)
 
@@ -125,34 +130,37 @@ class App:
             button_next.grid(column=2, row=value+3)
 
     def main_add_choice(self):
-        self.root2.destroy()
-        self.root3 = tk.Toplevel()
-        self.root3.resizable(True,True)
-        value = self.values.get()
-        self.correct_choice = tk.IntVar(value='Select Answer')
-        self.ans_list = []
-        self.choice_list = []
-        self.all_choice = []
-        self.i = 1
-        tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
-        for i in xrange(value):
-            self.choice_list.append('choice'+str(i))
-        for j in xrange(1, value+1):
-            self.choice_list[j-1] = tk.StringVar()
-            tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
-            tk.Entry(self.root3, width=50, textvariable=self.choice_list[j-1]).grid(pady=3, padx=10, row = j+1, column=2)
-        self.all_choice.append(self.choice_list)
-        self.choice_list = []
-        if value == 2:
-            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2)
-        elif value == 3:
-            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3)
-        elif value == 4:
-            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4)
-        elif value == 5:
-            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4, 5)
-        option.grid(pady=3, column=2, row=value+2)
-        tk.Button(self.root3, text='Next', command=self.sub_add_choice).grid(column=2)
+        try:
+            self.root2.destroy()
+            self.root3 = tk.Toplevel()
+            self.root3.resizable(True,True)
+            value = self.values.get()
+            self.correct_choice = tk.IntVar(value='Select Answer')
+            self.ans_list = []
+            self.choice_list = []
+            self.all_choice = []
+            self.i = 1
+            tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
+            for i in xrange(value):
+                self.choice_list.append('choice'+str(i))
+            for j in xrange(1, value+1):
+                self.choice_list[j-1] = tk.StringVar()
+                tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
+                tk.Entry(self.root3, width=50, textvariable=self.choice_list[j-1]).grid(pady=3, padx=10, row = j+1, column=2)
+            self.all_choice.append(self.choice_list)
+            self.choice_list = []
+            if value == 2:
+                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2)
+            elif value == 3:
+                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3)
+            elif value == 4:
+                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4)
+            elif value == 5:
+                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4, 5)
+            option.grid(pady=3, column=2, row=value+2)
+            tk.Button(self.root3, text='Next', command=self.sub_add_choice).grid(column=2)
+        except:
+            tkMessageBox.Showerror(title='as;dlkjfa;sdkjfsd;f', message='a;sldkjf;aslkdjf')
 
     def choice(self):
         self.root1.destroy()
@@ -163,29 +171,34 @@ class App:
         tk.OptionMenu(self.root2, self.values, 2, 3, 4, 5).grid(pady=2)
         tk.Button(self.root2, text='Submit', command=self.main_add_choice).grid(pady=5)
     def question(self):
-        self.first.destroy()
-        self.root1 = tk.Toplevel()
-        self.root1.resizable(True, True)
-        self.quest_list = []
-        num = self.num.get()
-        col = 0
-        row = 1
-        for j in xrange(1, num+1):
-            self.quest_list.append('quest'+str(j))
-        for i in xrange(1, num+1):
-            self.quest_list[i-1] = tk.StringVar()
-            tk.Label(self.root1, text='Please Enter Your Question %d :' % i).grid(pady=5, row=(row-1)*2, column=col)
-            entry = tk.Entry(self.root1, width=50, textvariable=self.quest_list[i-1])
-            entry.grid(row=(row*2)-1, column=col, padx=20)
-            row += 1
-            if i%10 == 0:
-                if num % 2 == 0:
-                    col += 2
-                else:
-                    col += 1
-                row = 1
-        tk.Button(self.root1, text='Submit', command=self.choice).grid(columnspan = col + 1, pady = 5)
+        try:
+            if self.num.get() == 1:
+                raise ValueError
 
+            self.first.destroy()
+            self.root1 = tk.Toplevel()
+            self.root1.resizable(True, True)
+            self.quest_list = []
+            num = self.num.get()
+            col = 0
+            row = 1
+            for j in xrange(1, num+1):
+                self.quest_list.append('quest'+str(j))
+            for i in xrange(1, num+1):
+                self.quest_list[i-1] = tk.StringVar()
+                tk.Label(self.root1, text='Please Enter Your Question %d :' % i).grid(pady=5, row=(row-1)*2, column=col)
+                entry = tk.Entry(self.root1, width=50, textvariable=self.quest_list[i-1])
+                entry.grid(row=(row*2)-1, column=col, padx=20)
+                row += 1
+                if i%10 == 0:
+                    if num % 2 == 0:
+                        col += 2
+                    else:
+                        col += 1
+                    row = 1
+            tk.Button(self.root1, text='Submit', command=self.choice).grid(columnspan = col + 1, pady = 5)
+        except:
+            tkMessageBox.showerror(title='xxxx', message='sdfdf')
 
 
 root = tk.Tk()
