@@ -8,7 +8,7 @@ How to use:
 
 
 Author : Yaya & Tonpho @ITKMITL
-Last Modified Date : 14/12/2014 Time : 11:21 AM
+Last Modified Date : 22/12/2014 Time : 11:21 AM
 Language : Python 2.7.8
 
 '''
@@ -128,37 +128,34 @@ class App:
             button_next.grid(column=2, row=value+3)
 
     def main_add_choice(self):
-        try:
-            self.root2.destroy()
-            self.root3 = tk.Toplevel()
-            self.root3.resizable(True,True)
-            value = self.values.get()
-            self.correct_choice = tk.IntVar(value='Select Answer')
-            self.ans_list = []
-            self.choice_list = []
-            self.all_choice = []
-            self.i = 1
-            tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
-            for i in xrange(value):
-                self.choice_list.append('choice'+str(i))
-            for j in xrange(1, value+1):
-                self.choice_list[j-1] = tk.StringVar()
-                tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
-                tk.Entry(self.root3, width=50, textvariable=self.choice_list[j-1]).grid(pady=3, padx=10, row = j+1, column=2)
-            self.all_choice.append(self.choice_list)
-            self.choice_list = []
-            if value == 2:
-                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2)
-            elif value == 3:
-                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3)
-            elif value == 4:
-                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4)
-            elif value == 5:
-                option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4, 5)
-            option.grid(pady=3, column=2, row=value+2)
-            tk.Button(self.root3, text='Next', command=self.sub_add_choice).grid(column=2)
-        except:
-            tkMessageBox.Showerror(title='as;dlkjfa;sdkjfsd;f', message='a;sldkjf;aslkdjf')
+        self.root2.destroy()
+        self.root3 = tk.Toplevel()
+        self.root3.resizable(True,True)
+        value = self.values.get()
+        self.correct_choice = tk.IntVar(value='Select Answer')
+        self.ans_list = []
+        self.choice_list = []
+        self.all_choice = []
+        self.i = 1
+        tk.Label(self.root3, width = 50, text=str(self.i)+'.'+self.quest_list[self.i-1].get()+' : ').grid(pady=3, row=0, columnspan=3)
+        for i in xrange(value):
+            self.choice_list.append('choice'+str(i))
+        for j in xrange(1, value+1):
+            self.choice_list[j-1] = tk.StringVar()
+            tk.Label(self.root3, text='('+str(j)+') :').grid(pady=3, row = j+1, column=1)
+            tk.Entry(self.root3, width=50, textvariable=self.choice_list[j-1]).grid(pady=3, padx=10, row = j+1, column=2)
+        self.all_choice.append(self.choice_list)
+        self.choice_list = []
+        if value == 2:
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2)
+        elif value == 3:
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3)
+        elif value == 4:
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4)
+        elif value == 5:
+            option = tk.OptionMenu(self.root3, self.correct_choice, 1, 2, 3, 4, 5)
+        option.grid(pady=3, column=2, row=value+2)
+        tk.Button(self.root3, text='Next', command=self.sub_add_choice).grid(column=2)
 
     def choice(self):
         self.root1.destroy()
